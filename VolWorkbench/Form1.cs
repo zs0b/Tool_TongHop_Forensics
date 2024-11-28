@@ -3,6 +3,9 @@ using System.IO;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using WinFormsComboBox = System.Windows.Forms.ComboBox;
+using WinFormsTextBox = System.Windows.Forms.TextBox;
+
 
 namespace VolWorkbench
 {
@@ -30,16 +33,17 @@ namespace VolWorkbench
                 Description = description;
             }
         }
+        private readonly object processLock = new object();
 
-        private Process currentProcess = null; // Tiến trình đang chạy
-        private bool isProcessing = false; // Trạng thái tiến 
-
+        private bool isProcessing = false;
+        private Process currentProcess; // Tiến trình đang chạy
         private void Form1_Load(object sender, EventArgs e)
         {
             button_refresh_process_list.Enabled = false;
             comboBox_command.Enabled = false;
-            button_command_info.Enabled = false;
+            //button_command_info.Enabled = true;
             button_run.Enabled = false;
+            button_stop.Enabled = false;
 
             // thiết lập DropDownStyle để không cho phép người dùng nhập vào
             comboBox_platform.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -75,29 +79,7 @@ namespace VolWorkbench
             button_copy_to_clipboard.Enabled = !isRunning;
             txtpath.Enabled = !isRunning;
             button_browser_image.Enabled = !isRunning;
-
-                
-            // Thay đổi button_run thành button_stop nếu đang chạy
-            button_run.Text = isRunning ? "Stop" : "Run";
-        }
-
-        private void StopCurrentProcess()
-        {
-            if (currentProcess != null && !currentProcess.HasExited)
-            {
-                try
-                {
-                    // Gửi tín hiệu hủy bỏ tiến trình
-                    currentProcess.Kill();
-                    currentProcess.WaitForExit();
-                    richTextBox_log.AppendText("\nProcess has been stopped.\n");
-                    button_run.Text = "Run"; // Đổi lại nút thành "Run"
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error stopping process: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            button_stop.Enabled = isRunning;
         }
 
         private void txtpath_TextChanged(object sender, EventArgs e)
@@ -130,209 +112,19 @@ namespace VolWorkbench
 
         private void button_refresh_process_list_Click(object sender, EventArgs e)
         {
-            if (isProcessing)
-            {
-                StopCurrentProcess();
-                return;
-            }
-
-            string imageFile = txtpath.Text; // đường dẫn file dump
-            string platform = comboBox_platform.SelectedItem?.ToString() ?? string.Empty; // platform chọn
-
-            if (string.IsNullOrEmpty(imageFile) || string.IsNullOrEmpty(platform))
-            {
-                MessageBox.Show("Please select an memory dump file and platform.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // path của thư mục chứa ứng dụng hiện tại
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // path tương đối đến vol.exe
-            string volExePath = Path.Combine(appDirectory, "tools", "vol.exe");
-
-            DateTime startTime = DateTime.Now;
-            richTextBox_log.AppendText($"[Started at {startTime:yyyy-MM-dd HH:mm:ss}] Starting scan...\n");
-            richTextBox_log.AppendText($"\"{volExePath}\" -f \"{imageFile}\" {platform}.pslist\nPlease wait...\n\n");
-
-            if (!File.Exists(volExePath))
-            {
-                MessageBox.Show($"vol.exe not found at {volExePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // command pslist cho refresh proces lít 
-            string command = $"\"{volExePath}\" -f  \"{imageFile}\" {platform}.pslist";
-
-            try
-            {
-                SetFormState(true); //dua form vao trang thai loading
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command {command}",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                currentProcess = new Process
-                {
-                    StartInfo = psi,
-                    EnableRaisingEvents = true
-                };
-
-                // đọc output
-                currentProcess.OutputDataReceived += (s, ev) =>
-                {
-                    if (!string.IsNullOrEmpty(ev.Data))
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            richTextBox_log.AppendText($"{ev.Data}\n");
-                        }));
-                    }
-                };
-
-                // đây không phải error mà là nhận phần progress của vol 
-                currentProcess.ErrorDataReceived += (s, ev) =>
-                {
-                    if (!string.IsNullOrEmpty(ev.Data))
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            textBox_progress.Text = $"{ev.Data}\n";
-
-                        }));
-                    }
-                };
-
-                currentProcess.Exited += (s, ev) =>
-                {
-                    DateTime endTime = DateTime.Now;
-                    Invoke(new Action(() =>
-                    {
-                        textBox_progress.Clear();
-                        richTextBox_log.AppendText($"\n[Finished at {endTime:yyyy-MM-dd HH:mm:ss}] Finished scan...\n");
-                        richTextBox_log.AppendText($"\n***********Command finished***********\n");;
-                        SetFormState(false); //trang thai bth
-                    }));
-                };
-
-
-                // start process
-                currentProcess.Start();
-                currentProcess.BeginOutputReadLine();
-                currentProcess.BeginErrorReadLine();
-
-            }
-            catch (Exception ex)
-            {
-                SetFormState(false);
-                MessageBox.Show($"Error while executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            button_command_info.Enabled = false;
+            button_run.Enabled = false;
+            ExecuteVolCommand($"{comboBox_platform.Text}.pslist", "Process list refreshed.");
         }
 
         private void button_run_Click(object sender, EventArgs e)
         {
-            if (currentProcess != null && !currentProcess.HasExited)
-            {
-                // Nếu tiến trình đang chạy, dừng nó
-                StopCurrentProcess();
-                return;
-            }
+            ExecuteVolCommand(comboBox_command.Text, "Command executed successfully.");
+        }
 
-            string imageFile = txtpath.Text;
-            string platform = comboBox_platform.Text;
-            string command = comboBox_command.Text;
-
-            if (string.IsNullOrWhiteSpace(imageFile) || string.IsNullOrWhiteSpace(platform) || string.IsNullOrWhiteSpace(command))
-            {
-                MessageBox.Show("Please fill all required fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Thực thi lệnh
-            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string volExePath = Path.Combine(appDirectory, "tools", "vol.exe");
-
-            DateTime startTime = DateTime.Now;
-            richTextBox_log.AppendText($"[Started at {startTime:yyyy-MM-dd HH:mm:ss}] Starting scan...\n");
-            richTextBox_log.AppendText($"\"{volExePath}\" -f \"{imageFile}\" {command}\nPlease wait...\n\n");
-
-            if (!File.Exists(volExePath))
-            {
-                MessageBox.Show($"vol.exe not found at {volExePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string commandexc = $"\"{volExePath}\" -f  \"{imageFile}\" {command}";
-
-            try
-            {
-                SetFormState(true); // Đưa form vào trạng thái loading
-
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command {commandexc}",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                currentProcess = new Process
-                {
-                    StartInfo = psi,
-                    EnableRaisingEvents = true
-                };
-
-                currentProcess.OutputDataReceived += (s, ev) =>
-                {
-                    if (!string.IsNullOrEmpty(ev.Data))
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            richTextBox_log.AppendText($"{ev.Data}\n");
-                        }));
-                    }
-                };
-
-                currentProcess.ErrorDataReceived += (s, ev) =>
-                {
-                    if (!string.IsNullOrEmpty(ev.Data))
-                    {
-                        Invoke(new Action(() =>
-                        {
-                            textBox_progress.Text = $"{ev.Data}\n";
-                        }));
-                    }
-                };
-
-                currentProcess.Exited += (s, ev) =>
-                {
-                    DateTime endTime = DateTime.Now;
-                    Invoke(new Action(() =>
-                    {
-                        textBox_progress.Clear();
-                        richTextBox_log.AppendText($"\n[Finished at {endTime:yyyy-MM-dd HH:mm:ss}] Finished scan...\n");
-                        richTextBox_log.AppendText($"\n***********Command finished***********\n");
-                        SetFormState(false); // Đưa form trở lại trạng thái không chạy
-                    }));
-                };
-
-                currentProcess.Start();
-                currentProcess.BeginOutputReadLine();
-                currentProcess.BeginErrorReadLine();
-                button_run.Text = "Stop";
-            }
-            catch (Exception ex)
-            {
-                SetFormState(false); // Đưa form trở lại trạng thái không chạy
-                MessageBox.Show($"Error while executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private void button_command_info_Click(object sender, EventArgs e)
+        {
+            ExecuteVolCommand($"{comboBox_command.Text} -h", "Command information displayed.");
         }
 
         private Dictionary<string, List<CommandInfo>> platformCommands = new Dictionary<string, List<CommandInfo>>()
@@ -574,17 +366,24 @@ namespace VolWorkbench
             Application.Exit();
         }
 
-        private void button_command_info_Click(object sender, EventArgs e)
+        private void button_stop_Click(object sender, EventArgs e)
         {
+            StopProcess();
+            textBox_progress.Clear();
+        }
+
+        private void ExecuteVolCommand(string command, string successMessage)
+        {
+            string selectedCommandName = comboBox_command.SelectedItem?.ToString() ?? string.Empty;
+
             if (isProcessing)
             {
-                StopCurrentProcess();
+                MessageBox.Show("A process is already running. Please stop it first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string imageFile = txtpath.Text;
             string platform = comboBox_platform.Text;
-            string command = comboBox_command.Text;
 
             if (string.IsNullOrWhiteSpace(imageFile) || string.IsNullOrWhiteSpace(platform) || string.IsNullOrWhiteSpace(command))
             {
@@ -592,16 +391,8 @@ namespace VolWorkbench
                 return;
             }
 
-            // thực thi lệnh
-            // path của thư mục chứa ứng dụng hiện tại
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // path tương đối đến vol.exe
             string volExePath = Path.Combine(appDirectory, "tools", "vol.exe");
-
-            DateTime startTime = DateTime.Now;
-            richTextBox_log.AppendText($"[Started at {startTime:yyyy-MM-dd HH:mm:ss}] Starting scan...\n");
-            richTextBox_log.AppendText($"\"{volExePath}\" -f \"{imageFile}\" {command} -h\nPlease wait...\n\n");
 
             if (!File.Exists(volExePath))
             {
@@ -609,16 +400,19 @@ namespace VolWorkbench
                 return;
             }
 
-            // build command cho run
-            string commandexc = $"\"{volExePath}\" -f  \"{imageFile}\" {command} -h";
+            string fullCommand = $"\"{volExePath}\" -f \"{imageFile}\" {command}";
+            DateTime startTime = DateTime.Now;
+            richTextBox_log.AppendText($"[Started at {startTime:yyyy-MM-dd HH:mm:ss}] Starting scan...\n");
+            richTextBox_log.AppendText($"{fullCommand}\nPlease wait...\n\n");
 
             try
             {
                 SetFormState(true);
+
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "powershell.exe",
-                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command {commandexc}",
+                    Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command {fullCommand}",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -631,28 +425,19 @@ namespace VolWorkbench
                     EnableRaisingEvents = true
                 };
 
-                // đọc output
                 currentProcess.OutputDataReceived += (s, ev) =>
                 {
                     if (!string.IsNullOrEmpty(ev.Data))
                     {
-                        Invoke(new Action(() =>
-                        {
-                            richTextBox_log.AppendText($"{ev.Data}\n");
-                        }));
+                        Invoke(new Action(() => richTextBox_log.AppendText($"{ev.Data}\n")));
                     }
                 };
 
-                // đéo phải error, progress 
                 currentProcess.ErrorDataReceived += (s, ev) =>
                 {
                     if (!string.IsNullOrEmpty(ev.Data))
                     {
-                        Invoke(new Action(() =>
-                        {
-                            textBox_progress.Text = $"{ev.Data}\n";
-
-                        }));
+                        Invoke(new Action(() => textBox_progress.Text = $"{ev.Data}\n"));
                     }
                 };
 
@@ -662,14 +447,11 @@ namespace VolWorkbench
                     Invoke(new Action(() =>
                     {
                         textBox_progress.Clear();
-                        richTextBox_log.AppendText($"\n[Finished at {endTime:yyyy-MM-dd HH:mm:ss}] Finished scan...\n");
-                        richTextBox_log.AppendText($"\n***********Command finished***********\n");
+                        richTextBox_log.AppendText($"\n[Finished at {endTime:yyyy-MM-dd HH:mm:ss}] {successMessage}\n");
                         SetFormState(false);
                     }));
                 };
 
-
-                //  process
                 currentProcess.Start();
                 currentProcess.BeginOutputReadLine();
                 currentProcess.BeginErrorReadLine();
@@ -679,12 +461,209 @@ namespace VolWorkbench
                 SetFormState(false);
                 MessageBox.Show($"Error while executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
-        private void button_stop_Click(object sender, EventArgs e)
+        private void StopProcess()
         {
-            StopCurrentProcess();
+            lock (processLock)
+            {
+                if (currentProcess != null && !currentProcess.HasExited)
+                {
+                    currentProcess.Exited -= OnProcessExited;
+                    currentProcess.EnableRaisingEvents = true;
+                    currentProcess.Dispose();
+                    Invoke(new Action(() =>
+                        {
+                            textBox_progress.Clear();
+                            richTextBox_log.AppendText("\nProcess was stopped.\n");
+                            SetFormState(false);
+                        }));
+                    currentProcess = null;
+                }
+
+            }
         }
+
+        private void OnProcessExited(object sender, EventArgs e)
+        {
+            DateTime endTime = DateTime.Now;
+            Invoke(new Action(() =>
+            {
+                textBox_progress.Clear();
+                richTextBox_log.AppendText($"\n[Finished at {endTime:yyyy-MM-dd HH:mm:ss}] Process completed.\n");
+                SetFormState(false);
+            }));
+        }
+
+        //private void InitializeCommandParameters()
+        //{
+        //    // Panel cho tham số liên quan đến process
+        //    Panel panelProcess = new Panel()
+        //    {
+        //        Location = new Point(10, 20),
+        //        Size = new Size(300, 80)
+        //    };
+
+        //    CheckBox checkBoxProcessId = new CheckBox()
+        //    {
+        //        Text = "--pid",
+        //        Location = new Point(10, 10),
+        //        AutoSize = true
+        //    };
+        //    System.Windows.Forms.ComboBox comboBoxPid = new System.Windows.Forms.ComboBox()
+        //    {
+        //        Location = new Point(100, 10),
+        //        Size = new Size(150, 20),
+        //        Visible = false
+        //    };
+
+        //    panelProcess.Controls.Add(checkBoxProcessId);
+        //    panelProcess.Controls.Add(comboBoxPid);
+
+        //    checkBoxProcessId.CheckedChanged += (sender, e) =>
+        //    {
+        //        comboBoxPid.Visible = checkBoxProcessId.Checked;
+        //    };
+
+        //    groupBox_command_parameters.Controls.Add(panelProcess);
+
+        //    // Panel cho tham số liên quan đến bộ nhớ
+        //    Panel panelMemory = new Panel()
+        //    {
+        //        Location = new Point(10, 110),
+        //        Size = new Size(300, 120)
+        //    };
+
+        //    CheckBox checkBoxShowFreedRegions = new CheckBox()
+        //    {
+        //        Text = "--show-free",
+        //        Location = new Point(10, 10),
+        //        AutoSize = true
+        //    };
+        //    CheckBox checkBoxDisplayPhysicalOffset = new CheckBox()
+        //    {
+        //        Text = "--physical",
+        //        Location = new Point(10, 40),
+        //        AutoSize = true
+        //    };
+        //    CheckBox checkBoxFull = new CheckBox()
+        //    {
+        //        Text = "--full",
+        //        Location = new Point(10, 70),
+        //        AutoSize = true
+        //    };
+
+        //    panelMemory.Controls.Add(checkBoxShowFreedRegions);
+        //    panelMemory.Controls.Add(checkBoxDisplayPhysicalOffset);
+        //    panelMemory.Controls.Add(checkBoxFull);
+
+        //    groupBox_command_parameters.Controls.Add(panelMemory);
+
+        //    // Panel cho tham số liên quan đến tìm kiếm
+        //    Panel panelSearch = new Panel()
+        //    {
+        //        Location = new Point(10, 240),
+        //        Size = new Size(300, 120)
+        //    };
+
+        //    CheckBox checkBoxFilter = new CheckBox()
+        //    {
+        //        Text = "--filter",
+        //        Location = new Point(10, 10),
+        //        AutoSize = true
+        //    };
+
+        //    System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox()
+        //    {
+        //        Location = new Point(100, 10),
+        //        Size = new Size(150, 20),
+        //        Visible = false
+        //    };
+
+
+        //    checkBoxFilter.CheckedChanged += (sender, e) =>
+        //    {
+        //        textBox.Visible = checkBoxFilter.Checked;
+        //    };
+
+
+        //    CheckBox checkBoxMinLength = new CheckBox()
+        //    {
+        //        Text = "--min-length",
+        //        Location = new Point(10, 40),
+        //        AutoSize = true
+        //    };
+        //    System.Windows.Forms.TextBox textBoxMinLength = new System.Windows.Forms.TextBox()
+        //    {
+        //        Location = new Point(100, 40),
+        //        Size = new Size(150, 20),
+        //        Visible = false
+        //    };
+
+        //    checkBoxMinLength.CheckedChanged += (sender, e) =>
+        //    {
+        //        textBoxMinLength.Visible = checkBoxMinLength.Checked;
+        //    };
+
+        //    panelSearch.Controls.Add(checkBoxFilter);
+        //    panelSearch.Controls.Add(textBox);
+        //    panelSearch.Controls.Add(checkBoxMinLength);
+        //    panelSearch.Controls.Add(textBoxMinLength);
+
+        //    groupBox_command_parameters.Controls.Add(panelSearch);
+
+        //    // Panel cho các tham số khác
+        //    Panel panelAdvanced = new Panel()
+        //    {
+        //        Location = new Point(10, 370),
+        //        Size = new Size(300, 150)
+        //    };
+
+        //    CheckBox checkBoxHiveOffset = new CheckBox()
+        //    {
+        //        Text = "--offset",
+        //        Location = new Point(10, 10),
+        //        AutoSize = true
+        //    };
+        //    System.Windows.Forms.TextBox textBoxHiveOffset = new System.Windows.Forms.TextBox()
+        //    {
+        //        Location = new Point(100, 10),
+        //        Size = new Size(150, 20),
+        //        Visible = false
+        //    };
+
+        //    checkBoxHiveOffset.CheckedChanged += (sender, e) =>
+        //    {
+        //        textBoxHiveOffset.Visible = checkBoxHiveOffset.Checked;
+        //    };
+
+        //    CheckBox checkBoxKeyToStartFrom = new CheckBox()
+        //    {
+        //        Text = "--key",
+        //        Location = new Point(10, 40),
+        //        AutoSize = true
+        //    };
+
+        //    System.Windows.Forms.TextBox textBoxKeyToStartFrom = new System.Windows.Forms.TextBox()
+        //    {
+        //        Location = new Point(100, 40),
+        //        Size = new Size(150, 20),
+        //        Visible = false
+        //    };
+
+        //    checkBoxKeyToStartFrom.CheckedChanged += (sender, e) =>
+        //    {
+        //        textBoxKeyToStartFrom.Visible = checkBoxKeyToStartFrom.Checked;
+        //    };
+
+        //    panelAdvanced.Controls.Add(checkBoxHiveOffset);
+        //    panelAdvanced.Controls.Add(textBoxHiveOffset);
+        //    panelAdvanced.Controls.Add(checkBoxKeyToStartFrom);
+        //    panelAdvanced.Controls.Add(textBoxKeyToStartFrom);
+
+        //    groupBox_command_parameters.Controls.Add(panelAdvanced);
+        //}
 
     }
 }

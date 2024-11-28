@@ -48,6 +48,7 @@
             button_exit = new Button();
             textBox_progress = new TextBox();
             pictureBox1 = new PictureBox();
+            button_stop = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -167,16 +168,16 @@
             // richTextBox_log
             // 
             richTextBox_log.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBox_log.Location = new Point(12, 181);
+            richTextBox_log.Location = new Point(12, 229);
             richTextBox_log.Name = "richTextBox_log";
-            richTextBox_log.Size = new Size(1123, 203);
+            richTextBox_log.Size = new Size(1059, 356);
             richTextBox_log.TabIndex = 12;
             richTextBox_log.Text = "By zs0b - 3r0th3rcc\n--------------------\n\n";
             // 
             // button_clear_log
             // 
             button_clear_log.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_clear_log.Location = new Point(491, 415);
+            button_clear_log.Location = new Point(427, 616);
             button_clear_log.Name = "button_clear_log";
             button_clear_log.Size = new Size(124, 23);
             button_clear_log.TabIndex = 13;
@@ -187,7 +188,7 @@
             // button_save_to_file
             // 
             button_save_to_file.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_save_to_file.Location = new Point(621, 415);
+            button_save_to_file.Location = new Point(557, 616);
             button_save_to_file.Name = "button_save_to_file";
             button_save_to_file.Size = new Size(124, 23);
             button_save_to_file.TabIndex = 14;
@@ -198,7 +199,7 @@
             // button_copy_to_clipboard
             // 
             button_copy_to_clipboard.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_copy_to_clipboard.Location = new Point(751, 415);
+            button_copy_to_clipboard.Location = new Point(687, 616);
             button_copy_to_clipboard.Name = "button_copy_to_clipboard";
             button_copy_to_clipboard.Size = new Size(124, 23);
             button_copy_to_clipboard.TabIndex = 15;
@@ -209,7 +210,7 @@
             // button_about
             // 
             button_about.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_about.Location = new Point(881, 415);
+            button_about.Location = new Point(817, 616);
             button_about.Name = "button_about";
             button_about.Size = new Size(124, 23);
             button_about.TabIndex = 16;
@@ -220,7 +221,7 @@
             // button_exit
             // 
             button_exit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_exit.Location = new Point(1011, 415);
+            button_exit.Location = new Point(947, 616);
             button_exit.Name = "button_exit";
             button_exit.Size = new Size(124, 23);
             button_exit.TabIndex = 17;
@@ -233,7 +234,7 @@
             textBox_progress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBox_progress.BackColor = SystemColors.Control;
             textBox_progress.BorderStyle = BorderStyle.None;
-            textBox_progress.Location = new Point(12, 390);
+            textBox_progress.Location = new Point(12, 591);
             textBox_progress.Name = "textBox_progress";
             textBox_progress.ReadOnly = true;
             textBox_progress.Size = new Size(162, 16);
@@ -242,18 +243,30 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox1.Location = new Point(969, 9);
+            pictureBox1.Location = new Point(905, 9);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(166, 166);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
             // 
+            // button_stop
+            // 
+            button_stop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_stop.Location = new Point(297, 616);
+            button_stop.Name = "button_stop";
+            button_stop.Size = new Size(124, 23);
+            button_stop.TabIndex = 20;
+            button_stop.Text = "Stop";
+            button_stop.UseVisualStyleBackColor = true;
+            button_stop.Click += button_stop_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1147, 450);
+            ClientSize = new Size(1083, 651);
+            Controls.Add(button_stop);
             Controls.Add(pictureBox1);
             Controls.Add(textBox_progress);
             Controls.Add(button_exit);
@@ -306,5 +319,7 @@
         private Button button_exit;
         private TextBox textBox_progress;
         private PictureBox pictureBox1;
+        private Button button_stop;
+        private Panel panel1;
     }
 }
