@@ -100,7 +100,6 @@ namespace VolWorkbench
             }
         }
 
-
         private void txtpath_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtpath.Text))
@@ -335,7 +334,6 @@ namespace VolWorkbench
                 MessageBox.Show($"Error while executing command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private Dictionary<string, List<CommandInfo>> platformCommands = new Dictionary<string, List<CommandInfo>>()
         {

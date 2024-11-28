@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zs0b\\source\\repos\\VolWorkbench\\VolWorkbench.csproj": {}
+    "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zs0b\\source\\repos\\VolWorkbench\\VolWorkbench.csproj": {
+    "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zs0b\\source\\repos\\VolWorkbench\\VolWorkbench.csproj",
+        "projectUniqueName": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
         "projectName": "VolWorkbench",
-        "projectPath": "C:\\Users\\zs0b\\source\\repos\\VolWorkbench\\VolWorkbench.csproj",
+        "projectPath": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
         "packagesPath": "C:\\Users\\zs0b\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zs0b\\source\\repos\\VolWorkbench\\obj\\",
+        "outputPath": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
