@@ -1,0 +1,16 @@
+C:\Users\zs0b\source\repos\VolWorkbench\bin\Debug\net8.0-windows\VolWorkbench.exe
+C:\Users\zs0b\source\repos\VolWorkbench\bin\Debug\net8.0-windows\VolWorkbench.deps.json
+C:\Users\zs0b\source\repos\VolWorkbench\bin\Debug\net8.0-windows\VolWorkbench.runtimeconfig.json
+C:\Users\zs0b\source\repos\VolWorkbench\bin\Debug\net8.0-windows\VolWorkbench.dll
+C:\Users\zs0b\source\repos\VolWorkbench\bin\Debug\net8.0-windows\VolWorkbench.pdb
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.Form1.resources
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.csproj.GenerateResource.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.AssemblyInfoInputs.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.AssemblyInfo.cs
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.csproj.CoreCompileInputs.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.dll
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\refint\VolWorkbench.dll
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.pdb
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\VolWorkbench.genruntimeconfig.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\net8.0-windows\ref\VolWorkbench.dll

@@ -1,0 +1,6 @@
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.Form1.resources
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.csproj.GenerateResource.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.AssemblyInfoInputs.cache
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.AssemblyInfo.cs
+C:\Users\zs0b\source\repos\VolWorkbench\obj\Debug\netcoreapp3.1\VolWorkbench.csproj.CoreCompileInputs.cache
