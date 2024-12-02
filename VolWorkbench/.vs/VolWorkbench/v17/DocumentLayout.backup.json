@@ -22,12 +22,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -38,8 +34,8 @@
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs [Design]*",
+              "RelativeToolTip": "Form1.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T06:57:19.229Z",
               "EditorCaption": " [Design]"
@@ -50,9 +46,9 @@
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AgIAAOAAAAAAAAAAAAAMwAcBAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.Designer.cs*",
+              "RelativeToolTip": "Form1.Designer.cs*",
+              "ViewState": "AgIAAPEAAAAAAAAAAAAMwH0BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-27T03:12:37.337Z",
               "EditorCaption": ""
@@ -63,9 +59,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAMYBAAAAAAAAAAAUwJ0CAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs*",
+              "RelativeToolTip": "Form1.cs*",
+              "ViewState": "AgIAACQCAAAAAAAAAAAcwHQCAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-27T02:51:36.787Z",
               "EditorCaption": ""

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VolWorkbench")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a5e21b6e33280b621aee13e8dd2984d27635fda")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08880c201e2cbc9b46a46a7c3de539c0a1cd95bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("VolWorkbench")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VolWorkbench")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

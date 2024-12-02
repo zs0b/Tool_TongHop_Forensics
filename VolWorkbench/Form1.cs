@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -31,11 +32,16 @@ namespace VolWorkbench
             {
                 Command = command;
                 Description = description;
+
             }
         }
+
         private readonly object processLock = new object();
 
         private bool isProcessing = false;
+
+        private bool isHeaderPrinted = false;
+
         private Process currentProcess; // Tiến trình đang chạy
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -80,6 +86,7 @@ namespace VolWorkbench
             txtpath.Enabled = !isRunning;
             button_browser_image.Enabled = !isRunning;
             button_stop.Enabled = isRunning;
+
         }
 
         private void txtpath_TextChanged(object sender, EventArgs e)
@@ -133,7 +140,7 @@ namespace VolWorkbench
                 "windows", new List<CommandInfo>()
                 {
                     new CommandInfo("----- Volatility Commands -----", "In order to run a command:\n1- Browse an image file\n2- Get/Refresh process list\n3- Select a command from the list\n4- Enter command parameters\n5- Run command"),
-                    new CommandInfo("windows.bigpools.BigPools", "List big page pools"),
+                    new CommandInfo("windows.bigpools.BigPools", "List big page pools" ),
                     new CommandInfo("windows.cachedump.Cachedump", "Dumps lsa secrets from memory"),
                     new CommandInfo("windows.callbacks.Callbacks", "Lists kernel callbacks and notification routines"),
                     new CommandInfo("windows.cmdline.CmdLine", "Lists process command line arguments"),
@@ -329,6 +336,7 @@ namespace VolWorkbench
             }
         }
 
+
         private void button_clear_log_Click(object sender, EventArgs e)
         {
             richTextBox_log.Clear();
@@ -429,7 +437,26 @@ namespace VolWorkbench
                 {
                     if (!string.IsNullOrEmpty(ev.Data))
                     {
-                        Invoke(new Action(() => richTextBox_log.AppendText($"{ev.Data}\n")));
+                        Invoke(new Action(() =>
+                        {
+                            if (command.Contains("pslist"))
+                            {
+                                // Chỉ in tiêu đề nếu chưa in
+                                if (!isHeaderPrinted)
+                                {
+                                    headerpslist();
+                                    isHeaderPrinted = true;
+                                }
+
+                                // Gọi hàm phân tích dữ liệu PID
+                                ParseAndDisplayPidTable(ev.Data);
+                            }
+                            else
+                            {
+                                // In trực tiếp nếu không chứa thông tin lệnh
+                                richTextBox_log.AppendText($"{ev.Data}\n");
+                            }
+                        }));
                     }
                 };
 
@@ -496,174 +523,124 @@ namespace VolWorkbench
             }));
         }
 
-        //private void InitializeCommandParameters()
-        //{
-        //    // Panel cho tham số liên quan đến process
-        //    Panel panelProcess = new Panel()
-        //    {
-        //        Location = new Point(10, 20),
-        //        Size = new Size(300, 80)
-        //    };
+        private void headerpslist()
+        {
+            const int colWidth1 = 8;   // PID
+            const int colWidth2 = 8;   // PPID
+            const int colWidth3 = 20;  // ImageFileName
+            const int colWidth4 = 18;  // Offset(V)
+            const int colWidth5 = 10;  // Threads
+            const int colWidth6 = 10;  // Handles
+            const int colWidth7 = 10;  // SessionId
+            const int colWidth8 = 8;   // Wow64
+            const int colWidth9 = 26;  // CreateTime
+            const int colWidth10 = 10; // ExitTime
+            const int colWidth11 = 12; // File output
 
-        //    CheckBox checkBoxProcessId = new CheckBox()
-        //    {
-        //        Text = "--pid",
-        //        Location = new Point(10, 10),
-        //        AutoSize = true
-        //    };
-        //    System.Windows.Forms.ComboBox comboBoxPid = new System.Windows.Forms.ComboBox()
-        //    {
-        //        Location = new Point(100, 10),
-        //        Size = new Size(150, 20),
-        //        Visible = false
-        //    };
+            string header = string.Format(
+                "{0,-" + colWidth1 + "} {1,-" + colWidth2 + "} {2,-" + colWidth3 + "} {3,-" + colWidth4 + "} {4,-" + colWidth5 + "} {5,-" + colWidth6 + "} {6,-" + colWidth7 + "} {7,-" + colWidth8 + "} {8,-" + colWidth9 + "} {9,-" + colWidth10 + "} {10,-" + colWidth11 + "}",
+                "PID", "PPID", "ImageFileName", "Offset(V)", "Threads", "Handles", "SessionId", "Wow64", "CreateTime", "ExitTime", "File output"
+            );
 
-        //    panelProcess.Controls.Add(checkBoxProcessId);
-        //    panelProcess.Controls.Add(comboBoxPid);
+            richTextBox_log.AppendText(header + "\n");
+            richTextBox_log.AppendText(new string('-', header.Length) + "\n");
+        }
 
-        //    checkBoxProcessId.CheckedChanged += (sender, e) =>
-        //    {
-        //        comboBoxPid.Visible = checkBoxProcessId.Checked;
-        //    };
+        private void ParseAndDisplayPidTable(string commandOutput)
+        {
+            const int colWidth1 = 8;   // PID
+            const int colWidth2 = 8;   // PPID
+            const int colWidth3 = 20;  // ImageFileName
+            const int colWidth4 = 18;  // Offset(V)
+            const int colWidth5 = 10;  // Threads
+            const int colWidth6 = 10;  // Handles
+            const int colWidth7 = 10;  // SessionId
+            const int colWidth8 = 8;   // Wow64
+            const int colWidth9 = 26;  // CreateTime
+            const int colWidth10 = 10; // ExitTime
+            const int colWidth11 = 12; // File output
 
-        //    groupBox_command_parameters.Controls.Add(panelProcess);
+            // Regex để trích xuất thông tin
+            string pidRowPattern = @"^\s*(\d+)\s+(\d+)\s+([\w.]+)\s+(0x[\w]+)\s+(\d+|-)\s+(\d+|-)\s+([\w/]+)\s+(True|False)\s+([\d\-:\.\s]+)\s+(N/A|[\w\s\-]+)\s+(Enabled|Disabled)\s*$";
 
-        //    // Panel cho tham số liên quan đến bộ nhớ
-        //    Panel panelMemory = new Panel()
-        //    {
-        //        Location = new Point(10, 110),
-        //        Size = new Size(300, 120)
-        //    };
+            // Tách dòng
+            string[] lines = commandOutput.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-        //    CheckBox checkBoxShowFreedRegions = new CheckBox()
-        //    {
-        //        Text = "--show-free",
-        //        Location = new Point(10, 10),
-        //        AutoSize = true
-        //    };
-        //    CheckBox checkBoxDisplayPhysicalOffset = new CheckBox()
-        //    {
-        //        Text = "--physical",
-        //        Location = new Point(10, 40),
-        //        AutoSize = true
-        //    };
-        //    CheckBox checkBoxFull = new CheckBox()
-        //    {
-        //        Text = "--full",
-        //        Location = new Point(10, 70),
-        //        AutoSize = true
-        //    };
+            foreach (var line in lines)
+            {
+                Match match = Regex.Match(line, pidRowPattern);
+                if (match.Success)
+                {
+                    // Trích xuất thông tin
+                    string pid = match.Groups[1].Value;
+                    string ppid = match.Groups[2].Value;
+                    string imageFileName = match.Groups[3].Value;
+                    string offset = match.Groups[4].Value;
+                    string threads = match.Groups[5].Value;
+                    string handles = match.Groups[6].Value;
+                    string sessionId = match.Groups[7].Value;
+                    string wow64 = match.Groups[8].Value;
+                    string createTime = match.Groups[9].Value;
+                    string exitTime = match.Groups[10].Value;
+                    string fileOutput = match.Groups[11].Value;
 
-        //    panelMemory.Controls.Add(checkBoxShowFreedRegions);
-        //    panelMemory.Controls.Add(checkBoxDisplayPhysicalOffset);
-        //    panelMemory.Controls.Add(checkBoxFull);
+                    // Định dạng dòng
+                    string formattedRow = string.Format(
+                        "{0,-" + colWidth1 + "} {1,-" + colWidth2 + "} {2,-" + colWidth3 + "} {3,-" + colWidth4 + "} {4,-" + colWidth5 + "} {5,-" + colWidth6 + "} {6,-" + colWidth7 + "} {7,-" + colWidth8 + "} {8,-" + colWidth9 + "} {9,-" + colWidth10 + "} {10,-" + colWidth11 + "}",
+                        pid, ppid, imageFileName, offset, threads, handles, sessionId, wow64, createTime, exitTime, fileOutput
+                    );
 
-        //    groupBox_command_parameters.Controls.Add(panelMemory);
+                    // Thêm vào richTextBox
+                    richTextBox_log.AppendText(formattedRow + "\n");
+                }
+            }
+        }
 
-        //    // Panel cho tham số liên quan đến tìm kiếm
-        //    Panel panelSearch = new Panel()
-        //    {
-        //        Location = new Point(10, 240),
-        //        Size = new Size(300, 120)
-        //    };
+        //groupbox
+        //windows
 
-        //    CheckBox checkBoxFilter = new CheckBox()
-        //    {
-        //        Text = "--filter",
-        //        Location = new Point(10, 10),
-        //        AutoSize = true
-        //    };
+        //bigpools
+        private void panel_bigpools_Paint(object sender, PaintEventArgs e)
+        {
 
-        //    System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox()
-        //    {
-        //        Location = new Point(100, 10),
-        //        Size = new Size(150, 20),
-        //        Visible = false
-        //    };
+        }
+        private void checkBox_Show_freed_regions_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //pid
+        private void panel_pid_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void checkBox_process_ID_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox_PID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
-        //    checkBoxFilter.CheckedChanged += (sender, e) =>
-        //    {
-        //        textBox.Visible = checkBoxFilter.Checked;
-        //    };
 
+        //envars
+        private void panel_envars_Paint(object sender, PaintEventArgs e)
+        {
 
-        //    CheckBox checkBoxMinLength = new CheckBox()
-        //    {
-        //        Text = "--min-length",
-        //        Location = new Point(10, 40),
-        //        AutoSize = true
-        //    };
-        //    System.Windows.Forms.TextBox textBoxMinLength = new System.Windows.Forms.TextBox()
-        //    {
-        //        Location = new Point(100, 40),
-        //        Size = new Size(150, 20),
-        //        Visible = false
-        //    };
+        }
+        private void checkBox_process_ID_envars_CheckedChanged(object sender, EventArgs e)
+        {
 
-        //    checkBoxMinLength.CheckedChanged += (sender, e) =>
-        //    {
-        //        textBoxMinLength.Visible = checkBoxMinLength.Checked;
-        //    };
+        }
+        private void comboBox_PID_envars_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-        //    panelSearch.Controls.Add(checkBoxFilter);
-        //    panelSearch.Controls.Add(textBox);
-        //    panelSearch.Controls.Add(checkBoxMinLength);
-        //    panelSearch.Controls.Add(textBoxMinLength);
+        }
+        private void checkBox_suppress_variables_CheckedChanged(object sender, EventArgs e)
+        {
 
-        //    groupBox_command_parameters.Controls.Add(panelSearch);
-
-        //    // Panel cho các tham số khác
-        //    Panel panelAdvanced = new Panel()
-        //    {
-        //        Location = new Point(10, 370),
-        //        Size = new Size(300, 150)
-        //    };
-
-        //    CheckBox checkBoxHiveOffset = new CheckBox()
-        //    {
-        //        Text = "--offset",
-        //        Location = new Point(10, 10),
-        //        AutoSize = true
-        //    };
-        //    System.Windows.Forms.TextBox textBoxHiveOffset = new System.Windows.Forms.TextBox()
-        //    {
-        //        Location = new Point(100, 10),
-        //        Size = new Size(150, 20),
-        //        Visible = false
-        //    };
-
-        //    checkBoxHiveOffset.CheckedChanged += (sender, e) =>
-        //    {
-        //        textBoxHiveOffset.Visible = checkBoxHiveOffset.Checked;
-        //    };
-
-        //    CheckBox checkBoxKeyToStartFrom = new CheckBox()
-        //    {
-        //        Text = "--key",
-        //        Location = new Point(10, 40),
-        //        AutoSize = true
-        //    };
-
-        //    System.Windows.Forms.TextBox textBoxKeyToStartFrom = new System.Windows.Forms.TextBox()
-        //    {
-        //        Location = new Point(100, 40),
-        //        Size = new Size(150, 20),
-        //        Visible = false
-        //    };
-
-        //    checkBoxKeyToStartFrom.CheckedChanged += (sender, e) =>
-        //    {
-        //        textBoxKeyToStartFrom.Visible = checkBoxKeyToStartFrom.Checked;
-        //    };
-
-        //    panelAdvanced.Controls.Add(checkBoxHiveOffset);
-        //    panelAdvanced.Controls.Add(textBoxHiveOffset);
-        //    panelAdvanced.Controls.Add(checkBoxKeyToStartFrom);
-        //    panelAdvanced.Controls.Add(textBoxKeyToStartFrom);
-
-        //    groupBox_command_parameters.Controls.Add(panelAdvanced);
-        //}
-
+        }
     }
 }

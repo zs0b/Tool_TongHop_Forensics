@@ -49,7 +49,21 @@
             textBox_progress = new TextBox();
             pictureBox1 = new PictureBox();
             button_stop = new Button();
+            panel_bigpools = new Panel();
+            checkBox_Show_freed_regions = new CheckBox();
+            groupBox_command_paratemer = new GroupBox();
+            panel_pid = new Panel();
+            checkBox_process_ID = new CheckBox();
+            comboBox_PID = new ComboBox();
+            panel_envars = new Panel();
+            checkBox_process_ID_envars = new CheckBox();
+            comboBox_PID_envars = new ComboBox();
+            checkBox_suppress_variables = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel_bigpools.SuspendLayout();
+            groupBox_command_paratemer.SuspendLayout();
+            panel_pid.SuspendLayout();
+            panel_envars.SuspendLayout();
             SuspendLayout();
             // 
             // label_image_file
@@ -261,11 +275,116 @@
             button_stop.UseVisualStyleBackColor = true;
             button_stop.Click += button_stop_Click;
             // 
+            // panel_bigpools
+            // 
+            panel_bigpools.Controls.Add(checkBox_Show_freed_regions);
+            panel_bigpools.Location = new Point(9, 22);
+            panel_bigpools.Name = "panel_bigpools";
+            panel_bigpools.Size = new Size(282, 72);
+            panel_bigpools.TabIndex = 21;
+            panel_bigpools.Paint += panel_bigpools_Paint;
+            // 
+            // checkBox_Show_freed_regions
+            // 
+            checkBox_Show_freed_regions.AutoSize = true;
+            checkBox_Show_freed_regions.Location = new Point(13, 12);
+            checkBox_Show_freed_regions.Name = "checkBox_Show_freed_regions";
+            checkBox_Show_freed_regions.Size = new Size(127, 19);
+            checkBox_Show_freed_regions.TabIndex = 0;
+            checkBox_Show_freed_regions.Text = "Show freed regions";
+            checkBox_Show_freed_regions.UseVisualStyleBackColor = true;
+            checkBox_Show_freed_regions.CheckedChanged += checkBox_Show_freed_regions_CheckedChanged;
+            // 
+            // groupBox_command_paratemer
+            // 
+            groupBox_command_paratemer.Controls.Add(panel_envars);
+            groupBox_command_paratemer.Controls.Add(panel_pid);
+            groupBox_command_paratemer.Controls.Add(panel_bigpools);
+            groupBox_command_paratemer.Location = new Point(56, 123);
+            groupBox_command_paratemer.Name = "groupBox_command_paratemer";
+            groupBox_command_paratemer.Size = new Size(297, 100);
+            groupBox_command_paratemer.TabIndex = 22;
+            groupBox_command_paratemer.TabStop = false;
+            groupBox_command_paratemer.Text = "Command Parameters";
+            // 
+            // panel_pid
+            // 
+            panel_pid.Controls.Add(checkBox_process_ID);
+            panel_pid.Controls.Add(comboBox_PID);
+            panel_pid.Location = new Point(9, 22);
+            panel_pid.Name = "panel_pid";
+            panel_pid.Size = new Size(282, 72);
+            panel_pid.TabIndex = 23;
+            panel_pid.Paint += panel_pid_Paint;
+            // 
+            // checkBox_process_ID
+            // 
+            checkBox_process_ID.AutoSize = true;
+            checkBox_process_ID.Location = new Point(13, 11);
+            checkBox_process_ID.Name = "checkBox_process_ID";
+            checkBox_process_ID.Size = new Size(80, 19);
+            checkBox_process_ID.TabIndex = 0;
+            checkBox_process_ID.Text = "Process ID";
+            checkBox_process_ID.UseVisualStyleBackColor = true;
+            checkBox_process_ID.CheckedChanged += checkBox_process_ID_CheckedChanged;
+            // 
+            // comboBox_PID
+            // 
+            comboBox_PID.FormattingEnabled = true;
+            comboBox_PID.Location = new Point(130, 7);
+            comboBox_PID.Name = "comboBox_PID";
+            comboBox_PID.Size = new Size(149, 23);
+            comboBox_PID.TabIndex = 1;
+            comboBox_PID.SelectedIndexChanged += comboBox_PID_SelectedIndexChanged;
+            // 
+            // panel_envars
+            // 
+            panel_envars.Controls.Add(checkBox_suppress_variables);
+            panel_envars.Controls.Add(comboBox_PID_envars);
+            panel_envars.Controls.Add(checkBox_process_ID_envars);
+            panel_envars.Location = new Point(9, 23);
+            panel_envars.Name = "panel_envars";
+            panel_envars.Size = new Size(282, 71);
+            panel_envars.TabIndex = 23;
+            panel_envars.Paint += panel_envars_Paint;
+            // 
+            // checkBox_process_ID_envars
+            // 
+            checkBox_process_ID_envars.AutoSize = true;
+            checkBox_process_ID_envars.Location = new Point(12, 13);
+            checkBox_process_ID_envars.Name = "checkBox_process_ID_envars";
+            checkBox_process_ID_envars.Size = new Size(80, 19);
+            checkBox_process_ID_envars.TabIndex = 1;
+            checkBox_process_ID_envars.Text = "Process ID";
+            checkBox_process_ID_envars.UseVisualStyleBackColor = true;
+            checkBox_process_ID_envars.CheckedChanged += checkBox_process_ID_envars_CheckedChanged;
+            // 
+            // comboBox_PID_envars
+            // 
+            comboBox_PID_envars.FormattingEnabled = true;
+            comboBox_PID_envars.Location = new Point(130, 8);
+            comboBox_PID_envars.Name = "comboBox_PID_envars";
+            comboBox_PID_envars.Size = new Size(149, 23);
+            comboBox_PID_envars.TabIndex = 2;
+            comboBox_PID_envars.SelectedIndexChanged += comboBox_PID_envars_SelectedIndexChanged;
+            // 
+            // checkBox_suppress_variables
+            // 
+            checkBox_suppress_variables.AutoSize = true;
+            checkBox_suppress_variables.Location = new Point(12, 38);
+            checkBox_suppress_variables.Name = "checkBox_suppress_variables";
+            checkBox_suppress_variables.Size = new Size(122, 19);
+            checkBox_suppress_variables.TabIndex = 3;
+            checkBox_suppress_variables.Text = "Suppress variables";
+            checkBox_suppress_variables.UseVisualStyleBackColor = true;
+            checkBox_suppress_variables.CheckedChanged += checkBox_suppress_variables_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1083, 651);
+            Controls.Add(groupBox_command_paratemer);
             Controls.Add(button_stop);
             Controls.Add(pictureBox1);
             Controls.Add(textBox_progress);
@@ -291,6 +410,13 @@
             Text = "Volatility 3";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel_bigpools.ResumeLayout(false);
+            panel_bigpools.PerformLayout();
+            groupBox_command_paratemer.ResumeLayout(false);
+            panel_pid.ResumeLayout(false);
+            panel_pid.PerformLayout();
+            panel_envars.ResumeLayout(false);
+            panel_envars.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -320,6 +446,15 @@
         private TextBox textBox_progress;
         private PictureBox pictureBox1;
         private Button button_stop;
-        private Panel panel1;
+        private Panel panel_bigpools;
+        private GroupBox groupBox_command_paratemer;
+        private CheckBox checkBox_Show_freed_regions;
+        private Panel panel_pid;
+        private ComboBox comboBox_PID;
+        private CheckBox checkBox_process_ID;
+        private Panel panel_envars;
+        private CheckBox checkBox_process_ID_envars;
+        private ComboBox comboBox_PID_envars;
+        private CheckBox checkBox_suppress_variables;
     }
 }
