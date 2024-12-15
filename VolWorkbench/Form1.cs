@@ -10,9 +10,9 @@ using WinFormsTextBox = System.Windows.Forms.TextBox;
 
 namespace VolWorkbench
 {
-    public partial class Form1 : Form
+    public partial class Form_Vol3 : Form
     {
-        public Form1()
+        public Form_Vol3()
         {
             InitializeComponent();
 
@@ -42,7 +42,7 @@ namespace VolWorkbench
 
         private bool isHeaderPrinted = false;
 
-        private Process currentProcess; // Tiến trình đang chạy
+        private Process currentProcess;
         private void Form1_Load(object sender, EventArgs e)
         {
             button_refresh_process_list.Enabled = false;
@@ -51,15 +51,12 @@ namespace VolWorkbench
             button_run.Enabled = false;
             button_stop.Enabled = false;
 
-            // thiết lập DropDownStyle để không cho phép người dùng nhập vào
             comboBox_platform.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox_command.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // danh sách các platform
             string[] platforms = { "windows", "linux", "mac" };
             comboBox_platform.Items.AddRange(platforms);
 
-            // chọn mục đầu tiên mặc định
             if (comboBox_platform.Items.Count > 0)
             {
                 comboBox_platform.SelectedIndex = 0;
@@ -69,11 +66,8 @@ namespace VolWorkbench
         private void SetFormState(bool isRunning)
         {
             isProcessing = isRunning;
-
-            // Đổi trạng thái con trỏ chuột
             this.Cursor = isRunning ? Cursors.WaitCursor : Cursors.Default;
 
-            // Kích hoạt / Vô hiệu hóa các nút
             button_refresh_process_list.Enabled = !isRunning;
             comboBox_command.Enabled = !isRunning;
             button_command_info.Enabled = !isRunning;
@@ -93,8 +87,8 @@ namespace VolWorkbench
         {
             if (!string.IsNullOrEmpty(txtpath.Text))
             {
-                button_refresh_process_list.Enabled = true; // Kích hoạt nút Refresh
-                comboBox_command.Enabled = true;           // Kích hoạt comboBox command
+                button_refresh_process_list.Enabled = true;
+                comboBox_command.Enabled = true;
             }
             else
             {
@@ -265,24 +259,17 @@ namespace VolWorkbench
         {
             string selectedPlatform = comboBox_platform.SelectedItem?.ToString() ?? string.Empty;
 
-            // Xóa danh sách cũ trong comboBox_command
             comboBox_command.Items.Clear();
 
-            // Kiểm tra platform có trong danh sách không
             if (platformCommands.ContainsKey(selectedPlatform))
             {
-                // Lấy danh sách các lệnh tương ứng với platform đã chọn
                 var commands = platformCommands[selectedPlatform];
 
-                // Thêm các lệnh vào comboBox_command
                 foreach (var command in commands)
                 {
-                    // Thêm tên lệnh vào comboBox_command (dùng command.CommandName thay vì CommandInfo đầy đủ)
                     comboBox_command.Items.Add(command.Command);
                 }
             }
-
-            // Chọn mục đầu tiên mặc định (nếu có lệnh nào)
             if (comboBox_command.Items.Count > 0)
             {
                 comboBox_command.SelectedIndex = 0;
@@ -291,16 +278,11 @@ namespace VolWorkbench
 
         private void comboBox_command_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Lấy platform đã chọn từ comboBox_platform
             string selectedPlatform = comboBox_platform.SelectedItem?.ToString() ?? string.Empty;
 
-            // Kiểm tra xem có lệnh nào được chọn không
             if (comboBox_command.SelectedItem != null)
             {
-                // Lấy tên lệnh đã chọn từ comboBox_command
                 string selectedCommandName = comboBox_command.SelectedItem?.ToString() ?? string.Empty;
-
-                // Tìm CommandInfo tương ứng với tên lệnh đã chọn
                 CommandInfo selectedCommand = null;
 
                 foreach (var command in platformCommands[selectedPlatform])
@@ -312,19 +294,16 @@ namespace VolWorkbench
                     }
                 }
 
-                // Nếu tìm thấy lệnh, hiển thị mô tả trong richTextBox_command_description
                 if (selectedCommand != null)
                 {
                     richTextBox_command_description.Text = selectedCommand.Description;
                     if (selectedCommand.Command == "----- Volatility Commands -----")
                     {
-                        // Nếu lệnh là "----- Volatility Commands -----", vô hiệu hóa các nút
                         button_command_info.Enabled = false;
                         button_run.Enabled = false;
                     }
                     else
                     {
-                        // Nếu lệnh khác, kích hoạt các nút
                         button_command_info.Enabled = true;
                         button_run.Enabled = true;
                     }
@@ -641,6 +620,26 @@ namespace VolWorkbench
         private void checkBox_suppress_variables_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form_Vol3_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                // Hiển thị hộp thoại xác nhận
+                DialogResult result = MessageBox.Show("Muốn thoát ?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Cancel)
+                {
+                    // Nếu người dùng chọn Cancel, ngừng việc đóng form
+                    e.Cancel = true;
+                }
+                else
+                {
+                    // Nếu người dùng chọn OK, thoát ứng dụng
+                    Application.Exit();
+                }
+            }
         }
     }
 }

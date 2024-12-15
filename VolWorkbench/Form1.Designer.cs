@@ -1,6 +1,6 @@
 ﻿namespace VolWorkbench
 {
-    partial class Form1
+    partial class Form_Vol3
     {
         /// <summary>
         ///  Required designer variable.
@@ -52,18 +52,18 @@
             panel_bigpools = new Panel();
             checkBox_Show_freed_regions = new CheckBox();
             groupBox_command_paratemer = new GroupBox();
+            panel_envars = new Panel();
+            checkBox_suppress_variables = new CheckBox();
+            comboBox_PID_envars = new ComboBox();
+            checkBox_process_ID_envars = new CheckBox();
             panel_pid = new Panel();
             checkBox_process_ID = new CheckBox();
             comboBox_PID = new ComboBox();
-            panel_envars = new Panel();
-            checkBox_process_ID_envars = new CheckBox();
-            comboBox_PID_envars = new ComboBox();
-            checkBox_suppress_variables = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel_bigpools.SuspendLayout();
             groupBox_command_paratemer.SuspendLayout();
-            panel_pid.SuspendLayout();
             panel_envars.SuspendLayout();
+            panel_pid.SuspendLayout();
             SuspendLayout();
             // 
             // label_image_file
@@ -257,9 +257,11 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox1.Location = new Point(905, 9);
+            pictureBox1.Image = Properties.Resources.logo_white_halloween;
+            pictureBox1.InitialImage = null;
+            pictureBox1.Location = new Point(901, 9);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(166, 166);
+            pictureBox1.Size = new Size(170, 166);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
@@ -307,6 +309,48 @@
             groupBox_command_paratemer.TabStop = false;
             groupBox_command_paratemer.Text = "Command Parameters";
             // 
+            // panel_envars
+            // 
+            panel_envars.Controls.Add(checkBox_suppress_variables);
+            panel_envars.Controls.Add(comboBox_PID_envars);
+            panel_envars.Controls.Add(checkBox_process_ID_envars);
+            panel_envars.Location = new Point(9, 23);
+            panel_envars.Name = "panel_envars";
+            panel_envars.Size = new Size(282, 71);
+            panel_envars.TabIndex = 23;
+            panel_envars.Paint += panel_envars_Paint;
+            // 
+            // checkBox_suppress_variables
+            // 
+            checkBox_suppress_variables.AutoSize = true;
+            checkBox_suppress_variables.Location = new Point(12, 38);
+            checkBox_suppress_variables.Name = "checkBox_suppress_variables";
+            checkBox_suppress_variables.Size = new Size(122, 19);
+            checkBox_suppress_variables.TabIndex = 3;
+            checkBox_suppress_variables.Text = "Suppress variables";
+            checkBox_suppress_variables.UseVisualStyleBackColor = true;
+            checkBox_suppress_variables.CheckedChanged += checkBox_suppress_variables_CheckedChanged;
+            // 
+            // comboBox_PID_envars
+            // 
+            comboBox_PID_envars.FormattingEnabled = true;
+            comboBox_PID_envars.Location = new Point(130, 8);
+            comboBox_PID_envars.Name = "comboBox_PID_envars";
+            comboBox_PID_envars.Size = new Size(149, 23);
+            comboBox_PID_envars.TabIndex = 2;
+            comboBox_PID_envars.SelectedIndexChanged += comboBox_PID_envars_SelectedIndexChanged;
+            // 
+            // checkBox_process_ID_envars
+            // 
+            checkBox_process_ID_envars.AutoSize = true;
+            checkBox_process_ID_envars.Location = new Point(12, 13);
+            checkBox_process_ID_envars.Name = "checkBox_process_ID_envars";
+            checkBox_process_ID_envars.Size = new Size(80, 19);
+            checkBox_process_ID_envars.TabIndex = 1;
+            checkBox_process_ID_envars.Text = "Process ID";
+            checkBox_process_ID_envars.UseVisualStyleBackColor = true;
+            checkBox_process_ID_envars.CheckedChanged += checkBox_process_ID_envars_CheckedChanged;
+            // 
             // panel_pid
             // 
             panel_pid.Controls.Add(checkBox_process_ID);
@@ -337,49 +381,7 @@
             comboBox_PID.TabIndex = 1;
             comboBox_PID.SelectedIndexChanged += comboBox_PID_SelectedIndexChanged;
             // 
-            // panel_envars
-            // 
-            panel_envars.Controls.Add(checkBox_suppress_variables);
-            panel_envars.Controls.Add(comboBox_PID_envars);
-            panel_envars.Controls.Add(checkBox_process_ID_envars);
-            panel_envars.Location = new Point(9, 23);
-            panel_envars.Name = "panel_envars";
-            panel_envars.Size = new Size(282, 71);
-            panel_envars.TabIndex = 23;
-            panel_envars.Paint += panel_envars_Paint;
-            // 
-            // checkBox_process_ID_envars
-            // 
-            checkBox_process_ID_envars.AutoSize = true;
-            checkBox_process_ID_envars.Location = new Point(12, 13);
-            checkBox_process_ID_envars.Name = "checkBox_process_ID_envars";
-            checkBox_process_ID_envars.Size = new Size(80, 19);
-            checkBox_process_ID_envars.TabIndex = 1;
-            checkBox_process_ID_envars.Text = "Process ID";
-            checkBox_process_ID_envars.UseVisualStyleBackColor = true;
-            checkBox_process_ID_envars.CheckedChanged += checkBox_process_ID_envars_CheckedChanged;
-            // 
-            // comboBox_PID_envars
-            // 
-            comboBox_PID_envars.FormattingEnabled = true;
-            comboBox_PID_envars.Location = new Point(130, 8);
-            comboBox_PID_envars.Name = "comboBox_PID_envars";
-            comboBox_PID_envars.Size = new Size(149, 23);
-            comboBox_PID_envars.TabIndex = 2;
-            comboBox_PID_envars.SelectedIndexChanged += comboBox_PID_envars_SelectedIndexChanged;
-            // 
-            // checkBox_suppress_variables
-            // 
-            checkBox_suppress_variables.AutoSize = true;
-            checkBox_suppress_variables.Location = new Point(12, 38);
-            checkBox_suppress_variables.Name = "checkBox_suppress_variables";
-            checkBox_suppress_variables.Size = new Size(122, 19);
-            checkBox_suppress_variables.TabIndex = 3;
-            checkBox_suppress_variables.Text = "Suppress variables";
-            checkBox_suppress_variables.UseVisualStyleBackColor = true;
-            checkBox_suppress_variables.CheckedChanged += checkBox_suppress_variables_CheckedChanged;
-            // 
-            // Form1
+            // Form_Vol3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -406,17 +408,18 @@
             Controls.Add(label_command);
             Controls.Add(label_platform);
             Controls.Add(label_image_file);
-            Name = "Form1";
+            Name = "Form_Vol3";
             Text = "Volatility 3";
+            FormClosing += Form_Vol3_FormClosing;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel_bigpools.ResumeLayout(false);
             panel_bigpools.PerformLayout();
             groupBox_command_paratemer.ResumeLayout(false);
-            panel_pid.ResumeLayout(false);
-            panel_pid.PerformLayout();
             panel_envars.ResumeLayout(false);
             panel_envars.PerformLayout();
+            panel_pid.ResumeLayout(false);
+            panel_pid.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
