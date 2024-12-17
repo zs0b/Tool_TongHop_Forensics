@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace VolWorkbench
 {
     public partial class Sigup : Form
     {
 
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\zs0b\Documents\LoginDatabase.mdf;Integrated Security=True;Connect Timeout=30");
+        MySqlConnection connect = new MySqlConnection(@"Server=171.247.175.33;Port=62807;Database=tool_for;User ID=zs0b;Password=123456789;Connection Timeout=60");
         public Sigup()
         {
             InitializeComponent();
@@ -49,9 +49,9 @@ namespace VolWorkbench
                         string checkUser = "SELECT * FROM admin WHERE username = '"
                             + textBox_signup_username.Text.Trim() + "'";
 
-                        using (SqlCommand checkuser = new SqlCommand(checkUser, connect))
+                        using (MySqlCommand checkuser = new MySqlCommand(checkUser, connect))
                         {
-                            SqlDataAdapter adapter = new SqlDataAdapter(checkuser);
+                            MySqlDataAdapter adapter = new MySqlDataAdapter(checkuser);
                             DataTable table = new DataTable();
                             adapter.Fill(table);
 
@@ -66,7 +66,7 @@ namespace VolWorkbench
 
                                 DateTime date = DateTime.Today;
 
-                                using (SqlCommand cmd = new SqlCommand(insertData, connect))
+                                using (MySqlCommand cmd = new MySqlCommand(insertData, connect))
                                 {
                                     cmd.Parameters.AddWithValue("@email", textBox_signup_email.Text.Trim());
                                     cmd.Parameters.AddWithValue("@username", textBox_signup_username.Text.Trim());

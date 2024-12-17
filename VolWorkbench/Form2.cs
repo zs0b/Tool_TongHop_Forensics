@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace VolWorkbench
 {
     public partial class Form_Login : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\zs0b\Documents\LoginDatabase.mdf;Integrated Security=True;Connect Timeout=30");
+        MySqlConnection connect = new MySqlConnection(@"Server=171.247.175.33;Port=62807;Database=tool_for;User ID=zs0b;Password=123456789;Connection Timeout=60");
 
         public Form_Login()
         {
@@ -104,11 +104,11 @@ namespace VolWorkbench
                         connect.Open();
 
                         string selectdata = "SELECT * FROM admin WHERE username = @username AND passwd = @pass ";
-                        using (SqlCommand cmd = new SqlCommand(selectdata, connect))
+                        using (MySqlCommand cmd = new MySqlCommand(selectdata, connect))
                         {
                             cmd.Parameters.AddWithValue("@username", textBox_login_username.Text);
                             cmd.Parameters.AddWithValue("@pass", textBox_login_password.Text);
-                            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                             DataTable table = new DataTable();
                             adapter.Fill(table);
 
