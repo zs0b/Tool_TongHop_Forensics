@@ -575,53 +575,6 @@ namespace VolWorkbench
             }
         }
 
-        //groupbox
-        //windows
-
-        //bigpools
-        private void panel_bigpools_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void checkBox_Show_freed_regions_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //pid
-        private void panel_pid_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void checkBox_process_ID_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void comboBox_PID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        //envars
-        private void panel_envars_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void checkBox_process_ID_envars_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void comboBox_PID_envars_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void checkBox_suppress_variables_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form_Vol3_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)

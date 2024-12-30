@@ -3,40 +3,64 @@
   "WorkspaceRootPath": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sigup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sqlquery1.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|",
-      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sqlquery1.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:designtimedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\volworkbench.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:volworkbench.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\volworkbench.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:volworkbench.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sigup.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sigup.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|c:\\users\\zs0b\\documents\\github\\tool_tonghop_forensics\\volworkbench\\sqlquery1.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
-      "RelativeMoniker": "D:0:0:{CA53D3E7-40E9-486C-BB20-ABA4B7A10C0C}|VolWorkbench.csproj|solutionrelative:sqlquery1.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,17 +70,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAD4vxYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAWwLYBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-15T06:04:53.592Z",
               "IsPinned": true,
@@ -69,6 +93,159 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T15:07:16.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DesignTimeDbContextFactory.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\DesignTimeDbContextFactory.cs",
+              "RelativeDocumentMoniker": "DesignTimeDbContextFactory.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\DesignTimeDbContextFactory.cs",
+              "RelativeToolTip": "DesignTimeDbContextFactory.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAnwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T14:59:03.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\User.cs",
+              "RelativeDocumentMoniker": "User.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\User.cs",
+              "RelativeToolTip": "User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T14:55:55.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\ApplicationDbContext.cs",
+              "RelativeToolTip": "ApplicationDbContext.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAYwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T14:09:46.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "VolWorkbench",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
+              "RelativeDocumentMoniker": "VolWorkbench.csproj",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
+              "RelativeToolTip": "VolWorkbench.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-30T14:01:06.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VolWorkbench",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
+              "RelativeDocumentMoniker": "VolWorkbench.csproj",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\VolWorkbench.csproj",
+              "RelativeToolTip": "VolWorkbench.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-30T13:57:33.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Sigup.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
+              "RelativeDocumentMoniker": "Sigup.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
+              "RelativeToolTip": "Sigup.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAnwBgAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T11:33:18.812Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Sigup.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
+              "RelativeDocumentMoniker": "Sigup.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs [Design]",
+              "RelativeToolTip": "Sigup.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T11:33:17.159Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form2.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
+              "RelativeDocumentMoniker": "Form2.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
+              "RelativeToolTip": "Form2.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAUwHMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T11:30:30.239Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form2.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
+              "RelativeDocumentMoniker": "Form2.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs [Design]",
+              "RelativeToolTip": "Form2.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T11:30:26.715Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAnwBMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-28T02:39:56.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AgIAAFgBAAAAAAAAAAAowG0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T11:51:14.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "Sigup.Designer.cs",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.Designer.cs",
               "RelativeDocumentMoniker": "Sigup.Designer.cs",
@@ -81,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -90,68 +267,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-15T06:04:49.255Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SQLQuery1.sql ",
-              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\SQLQuery1.sql",
-              "RelativeDocumentMoniker": "SQLQuery1.sql",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\SQLQuery1.sql",
-              "RelativeToolTip": "SQLQuery1.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-15T04:31:14.079Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Sigup.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
-              "RelativeDocumentMoniker": "Sigup.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs [Design]",
-              "RelativeToolTip": "Sigup.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T04:21:08.657Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Sigup.cs",
-              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
-              "RelativeDocumentMoniker": "Sigup.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Sigup.cs",
-              "RelativeToolTip": "Sigup.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T04:21:11.251Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form2.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
-              "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs [Design]",
-              "RelativeToolTip": "Form2.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T03:05:24.742Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form2.cs",
-              "DocumentMoniker": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
-              "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\zs0b\\Documents\\GitHub\\Tool_TongHop_Forensics\\VolWorkbench\\Form2.cs",
-              "RelativeToolTip": "Form2.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAswA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-15T06:08:10.947Z",
-              "EditorCaption": ""
             }
           ]
         }

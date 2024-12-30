@@ -284,7 +284,6 @@
             panel_bigpools.Name = "panel_bigpools";
             panel_bigpools.Size = new Size(282, 72);
             panel_bigpools.TabIndex = 21;
-            panel_bigpools.Paint += panel_bigpools_Paint;
             // 
             // checkBox_Show_freed_regions
             // 
@@ -295,7 +294,6 @@
             checkBox_Show_freed_regions.TabIndex = 0;
             checkBox_Show_freed_regions.Text = "Show freed regions";
             checkBox_Show_freed_regions.UseVisualStyleBackColor = true;
-            checkBox_Show_freed_regions.CheckedChanged += checkBox_Show_freed_regions_CheckedChanged;
             // 
             // groupBox_command_paratemer
             // 
@@ -318,7 +316,6 @@
             panel_envars.Name = "panel_envars";
             panel_envars.Size = new Size(282, 71);
             panel_envars.TabIndex = 23;
-            panel_envars.Paint += panel_envars_Paint;
             // 
             // checkBox_suppress_variables
             // 
@@ -329,7 +326,6 @@
             checkBox_suppress_variables.TabIndex = 3;
             checkBox_suppress_variables.Text = "Suppress variables";
             checkBox_suppress_variables.UseVisualStyleBackColor = true;
-            checkBox_suppress_variables.CheckedChanged += checkBox_suppress_variables_CheckedChanged;
             // 
             // comboBox_PID_envars
             // 
@@ -338,7 +334,6 @@
             comboBox_PID_envars.Name = "comboBox_PID_envars";
             comboBox_PID_envars.Size = new Size(149, 23);
             comboBox_PID_envars.TabIndex = 2;
-            comboBox_PID_envars.SelectedIndexChanged += comboBox_PID_envars_SelectedIndexChanged;
             // 
             // checkBox_process_ID_envars
             // 
@@ -349,7 +344,6 @@
             checkBox_process_ID_envars.TabIndex = 1;
             checkBox_process_ID_envars.Text = "Process ID";
             checkBox_process_ID_envars.UseVisualStyleBackColor = true;
-            checkBox_process_ID_envars.CheckedChanged += checkBox_process_ID_envars_CheckedChanged;
             // 
             // panel_pid
             // 
@@ -359,7 +353,6 @@
             panel_pid.Name = "panel_pid";
             panel_pid.Size = new Size(282, 72);
             panel_pid.TabIndex = 23;
-            panel_pid.Paint += panel_pid_Paint;
             // 
             // checkBox_process_ID
             // 
@@ -370,7 +363,6 @@
             checkBox_process_ID.TabIndex = 0;
             checkBox_process_ID.Text = "Process ID";
             checkBox_process_ID.UseVisualStyleBackColor = true;
-            checkBox_process_ID.CheckedChanged += checkBox_process_ID_CheckedChanged;
             // 
             // comboBox_PID
             // 
@@ -379,7 +371,6 @@
             comboBox_PID.Name = "comboBox_PID";
             comboBox_PID.Size = new Size(149, 23);
             comboBox_PID.TabIndex = 1;
-            comboBox_PID.SelectedIndexChanged += comboBox_PID_SelectedIndexChanged;
             // 
             // Form_Vol3
             // 

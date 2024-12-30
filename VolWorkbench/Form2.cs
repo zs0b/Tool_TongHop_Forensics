@@ -7,74 +7,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace VolWorkbench
 {
     public partial class Form_Login : Form
     {
-        MySqlConnection connect = new MySqlConnection(@"Server=171.247.175.33;Port=62807;Database=tool_for;User ID=zs0b;Password=123456789;Connection Timeout=60");
+        private readonly ApplicationDbContext _context;
 
         public Form_Login()
         {
             InitializeComponent();
-            string iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logo-white-halloween.ico");
-            this.Icon = new Icon(iconPath);
-
+            string connectionString = "Server=171.247.175.33;Port=62807;Database=tool_for;Uid=zs0b;Pwd=123456789;SslMode=None;";
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 11, 8)));
+            _context = new ApplicationDbContext(optionsBuilder.Options);
         }
-
-        private bool isSwitchingForm = false;
 
         private void label_registerhere_Click(object sender, EventArgs e)
         {
-            isSwitchingForm = true; // Đặt cờ báo hiệu đang chuyển form
-            Sigup Sform = new Sigup();
-            Sform.Show();
-            this.Hide(); // Sử dụng Close() thay vì Hide()
+            Sigup signupForm = new Sigup();
+            signupForm.Show();
+            this.Hide();
         }
 
 
         private void Form_Login_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Nếu đang chuyển form, bỏ qua xác nhận thoát
-            if (isSwitchingForm)
-            {
-                e.Cancel = false;
-                return;
-            }
-
-            // Kiểm tra nếu sự kiện FormClosing được kích hoạt bởi người dùng
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                // Hiển thị hộp thoại xác nhận
-                DialogResult result = MessageBox.Show("Muốn thoát ?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Cancel)
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
                 {
-                    e.Cancel = true; // Dừng việc đóng form
+                    e.Cancel = true;
                 }
                 else
                 {
-                    Application.Exit(); // Thoát ứng dụng
+                    Application.Exit();
                 }
             }
         }
-
-
 
 
         private void checkBox_showpassword_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_showpassword.Checked)
-            {
-                textBox_login_password.PasswordChar = '\0';
-            }
-            else
-            {
-                textBox_login_password.PasswordChar = '*';
-            }
-            textBox_login_password.Refresh();
+            textBox_login_password.PasswordChar = checkBox_showpassword.Checked ? '\0' : '*';
         }
+
 
         private void textBox_login_password_TextChanged(object sender, EventArgs e)
         {
@@ -86,55 +65,58 @@ namespace VolWorkbench
             {
                 textBox_login_password.PasswordChar = '\0';
             }
-
         }
 
-        private void button_login_Click(object sender, EventArgs e)
+        private async void button_login_Click(object sender, EventArgs e)
         {
-            if(textBox_login_username.Text == "" || textBox_login_password.Text == "")
+            if (string.IsNullOrEmpty(textBox_login_username.Text) || string.IsNullOrEmpty(textBox_login_password.Text))
             {
                 MessageBox.Show("Dien cho het di !!!", "Loii 0.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            try
             {
-                if (connect.State != ConnectionState.Open)
+                // Lấy thông tin người dùng từ cơ sở dữ liệu
+                var user = await _context.Users
+                                          .Where(u => u.Username == textBox_login_username.Text)
+                                          .FirstOrDefaultAsync();
+
+                if (user != null)
                 {
-                    try
-                    {
-                        connect.Open();
+                    // Loại bỏ khoảng trắng thừa trong mật khẩu người dùng nhập vào
+                    string passwordToVerify = textBox_login_password.Text.Trim();
 
-                        string selectdata = "SELECT * FROM admin WHERE username = @username AND passwd = @pass ";
-                        using (MySqlCommand cmd = new MySqlCommand(selectdata, connect))
-                        {
-                            cmd.Parameters.AddWithValue("@username", textBox_login_username.Text);
-                            cmd.Parameters.AddWithValue("@pass", textBox_login_password.Text);
-                            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                            DataTable table = new DataTable();
-                            adapter.Fill(table);
+                    // Kiểm tra mật khẩu đã mã hóa
+                    bool isPasswordValid = BCrypt.Net.BCrypt.Verify(passwordToVerify, user.Password);
 
-                            if(table.Rows.Count >= 1)
-                            {
-                                MessageBox.Show("Loggedd ~~", "Thong baoo 0.0", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                Form_Vol3 form_Vol3 = new Form_Vol3();
-                                form_Vol3.Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Incorrect Username/Password", "Loii 0.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                    }
-                    catch (Exception ex) 
+                    if (isPasswordValid)
                     {
-                        MessageBox.Show("Error connecting: " + ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Logged in successfully", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Form_Vol3 form_Vol3 = new Form_Vol3();
+                        form_Vol3.Show();
+                        this.Hide();
                     }
-                    finally
+                    else
                     {
-                        connect.Close();
+                        MessageBox.Show("Sai mật khẩu!", "Lỗi 0.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Sai tài khoản hoặc mật khẩu!", "Lỗi 0.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error connecting: " + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
     }
+
 }
+

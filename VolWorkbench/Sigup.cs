@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -7,149 +6,144 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace VolWorkbench
 {
     public partial class Sigup : Form
     {
+        private readonly ApplicationDbContext _context;
 
-        MySqlConnection connect = new MySqlConnection(@"Server=171.247.175.33;Port=62807;Database=tool_for;User ID=zs0b;Password=123456789;Connection Timeout=60");
+        // Constructor that accepts ApplicationDbContext to inject it via Dependency Injection
         public Sigup()
         {
             InitializeComponent();
-            string iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logo-white-halloween.ico");
-            this.Icon = new Icon(iconPath);
+            string connectionString = "Server=171.247.175.33;Port=62807;Database=tool_for;Uid=zs0b;Pwd=123456789;SslMode=None;";
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 11, 8)));
+            _context = new ApplicationDbContext(optionsBuilder.Options);
         }
 
         private bool isSwitchingForm = false;
 
+        // Event handler for "Login Here" link
         private void label_signuo_loginhere_Click(object sender, EventArgs e)
         {
             Form_Login form_Login = new Form_Login();
             form_Login.Show();
             isSwitchingForm = true;
-
             this.Close();
         }
 
-        private void button_signup_login_Click(object sender, EventArgs e)
+        // Async event handler for the signup button click
+        private async void button_signup_login_Click(object sender, EventArgs e)
         {
-            if (textBox_signup_email.Text == "" || textBox_signup_username.Text == "" || textBox_signup_password.Text == "")
+            // Kiểm tra nếu các trường dữ liệu không được điền đầy đủ
+            if (string.IsNullOrWhiteSpace(textBox_signup_email.Text) ||
+                string.IsNullOrWhiteSpace(textBox_signup_username.Text) ||
+                string.IsNullOrWhiteSpace(textBox_signup_password.Text))
             {
-                MessageBox.Show("Dien cho het di !!!", "Loii 0.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            try
             {
-                if (connect.State != ConnectionState.Open)
+                // Kiểm tra xem username đã tồn tại trong cơ sở dữ liệu chưa
+                var existingUser = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Username == textBox_signup_username.Text.Trim());
+
+                if (existingUser != null)
                 {
-                    try
-                    {
-                        connect.Open();
-                        string checkUser = "SELECT * FROM admin WHERE username = '"
-                            + textBox_signup_username.Text.Trim() + "'";
-
-                        using (MySqlCommand checkuser = new MySqlCommand(checkUser, connect))
-                        {
-                            MySqlDataAdapter adapter = new MySqlDataAdapter(checkuser);
-                            DataTable table = new DataTable();
-                            adapter.Fill(table);
-
-                            if (table.Rows.Count >= 1)
-                            {
-                                MessageBox.Show(textBox_signup_username.Text + " is already exist", " Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                string insertData = "INSERT INTO admin (email, username, passwd, date_created)" +
-                                    "VALUES(@email, @username, @pass, @date)";
-
-                                DateTime date = DateTime.Today;
-
-                                using (MySqlCommand cmd = new MySqlCommand(insertData, connect))
-                                {
-                                    cmd.Parameters.AddWithValue("@email", textBox_signup_email.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@username", textBox_signup_username.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@pass", textBox_signup_password.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@date", date);
-
-                                    cmd.ExecuteNonQuery();
-
-                                    MessageBox.Show("Registered Successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                    Form_Login form_Login = new Form_Login();
-                                    form_Login.Show();
-                                    this.Hide();
-
-                                }
-
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error connecting Database: " + ex, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        connect.Close();
-                    }
+                    MessageBox.Show($"{textBox_signup_username.Text} đã tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                {
+                    // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
+                    var hashedPassword = BCrypt.Net.BCrypt.HashPassword(textBox_signup_password.Text.Trim());
+
+                    // Tạo đối tượng người dùng mới
+                    var newUser = new User
+                    {
+                        Email = textBox_signup_email.Text.Trim(),
+                        Username = textBox_signup_username.Text.Trim(),
+                        Password = hashedPassword, // Sử dụng mật khẩu đã mã hóa
+                        DateCreated = DateTime.Now // Lưu thời gian hiện tại
+                    };
+
+                    // Thêm người dùng mới vào DbContext
+                    _context.Users.Add(newUser);
+
+                    // Lưu các thay đổi vào cơ sở dữ liệu
+                    await _context.SaveChangesAsync();
+
+                    MessageBox.Show("Đăng ký thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Mở form đăng nhập và đóng form đăng ký
+                    Form_Login form_Login = new Form_Login();
+                    form_Login.Show();
+                    this.Hide();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Thông báo lỗi nếu có sự cố xảy ra
+                MessageBox.Show($"Đã có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
+        // Event handler for show/hide password checkbox
         private void checkBox_signup_showpassword_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_signup_showpassword.Checked)
             {
-                textBox_signup_password.PasswordChar = '\0';
+                textBox_signup_password.PasswordChar = '\0'; // Show password
             }
             else
             {
-                textBox_signup_password.PasswordChar = '*';
+                textBox_signup_password.PasswordChar = '*'; // Hide password
             }
 
             textBox_signup_password.Refresh();
         }
 
+        // Event handler for password text change
         private void textBox_signup_password_TextChanged(object sender, EventArgs e)
         {
             if (!checkBox_signup_showpassword.Checked)
             {
-                textBox_signup_password.PasswordChar = '*';  // Ẩn mật khẩu
+                textBox_signup_password.PasswordChar = '*';  // Hide password
             }
             else
             {
-                textBox_signup_password.PasswordChar = '\0';  // Hiển thị mật khẩu
+                textBox_signup_password.PasswordChar = '\0';  // Show password
             }
-
         }
 
+        // Event handler for form closing
         private void Sigup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Nếu đang chuyển form, bỏ qua xác nhận thoát
             if (isSwitchingForm)
             {
                 e.Cancel = false;
                 return;
             }
 
-            // Hiển thị hộp thoại xác nhận
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                DialogResult result = MessageBox.Show("Muốn thoát ?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Bạn có muốn thoát không?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Cancel)
                 {
-                    e.Cancel = true; // Dừng việc đóng form
+                    e.Cancel = true;
                 }
                 else
                 {
-                    Application.Exit(); // Thoát ứng dụng
+                    Application.Exit();
                 }
             }
         }
-
-
     }
 }
