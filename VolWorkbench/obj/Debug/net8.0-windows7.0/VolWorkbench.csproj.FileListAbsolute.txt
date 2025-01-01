@@ -182,3 +182,6 @@ C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net
 C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\logo-white-halloween.png
 C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\MySql.EntityFrameworkCore.dll
 C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\BCrypt.Net-Next.dll
+C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\DotNetEnv.dll
+C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\Sprache.dll
+C:\Users\zs0b\Documents\GitHub\Tool_TongHop_Forensics\VolWorkbench\bin\Debug\net8.0-windows7.0\envdb.env

@@ -315,7 +315,6 @@ namespace VolWorkbench
             }
         }
 
-
         private void button_clear_log_Click(object sender, EventArgs e)
         {
             richTextBox_log.Clear();

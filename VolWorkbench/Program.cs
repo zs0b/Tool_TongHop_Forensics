@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using DotNetEnv;
+
 
 namespace VolWorkbench
 {
@@ -11,16 +13,32 @@ namespace VolWorkbench
         [STAThread]
         static void Main()
         {
-            // Cấu hình trực tiếp DbContextOptions tại runtime
+            Env.Load("envdb.env");
+
+
+            // Lấy thông tin kết nối từ .env
+            string server = Env.GetString("DB_SERVER");
+            string port = Env.GetString("DB_PORT");
+            string database = Env.GetString("DB_NAME");
+            string username = Env.GetString("DB_USER");
+            string password = Env.GetString("DB_PASSWORD");
+            string sslMode = Env.GetString("DB_SSLMODE");
+
+            // Tạo chuỗi kết nối từ thông tin trong .env
+            string connectionString = $"Server={server};Port={port};Database={database};Uid={username};Pwd={password};SslMode={sslMode};";
+
+            // Cấu hình DbContextOptions sử dụng chuỗi kết nối
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseMySql("Server=171.247.175.33;Port=62807;Database=tool_for;Uid=zs0b;Pwd=123456789;SslMode=None;",
-                                    new MySqlServerVersion(new Version(10, 11, 8)));
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 11, 8)), options =>
+                options.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(10),
+                    errorNumbersToAdd: null));
 
             // Tạo instance của ApplicationDbContext
             var dbContext = new ApplicationDbContext(optionsBuilder.Options);
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            // Khởi tạo cấu hình ứng dụng
             ApplicationConfiguration.Initialize();
             Application.Run(new Form_Login());
         }

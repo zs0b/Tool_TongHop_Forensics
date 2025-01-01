@@ -8,25 +8,43 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
+using DotNetEnv;
 
 namespace VolWorkbench
 {
     public partial class Sigup : Form
     {
         private readonly ApplicationDbContext _context;
-
         // Constructor that accepts ApplicationDbContext to inject it via Dependency Injection
         public Sigup()
         {
             InitializeComponent();
-            string connectionString = "Server=171.247.175.33;Port=62807;Database=tool_for;Uid=zs0b;Pwd=123456789;SslMode=None;";
+            string iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logo-white-halloween.ico");
+            this.Icon = new Icon(iconPath);
+
+            // Load .env file
+            Env.Load("envdb.env");
+
+
+            // Lấy thông tin từ .env
+            string dbHost = Env.GetString("DB_HOST") ?? throw new Exception("DB_HOST is missing");
+            string dbPort = Env.GetString("DB_PORT") ?? throw new Exception("DB_PORT is missing");
+            string dbName = Env.GetString("DB_NAME") ?? throw new Exception("DB_NAME is missing");
+            string dbUser = Env.GetString("DB_USER") ?? throw new Exception("DB_USER is missing");
+            string dbPassword = Env.GetString("DB_PASSWORD") ?? throw new Exception("DB_PASSWORD is missing");
+            string dbSslMode = Env.GetString("DB_SSLMODE") ?? throw new Exception("DB_SSLMODE is missing");
+
+
+            // Tạo chuỗi kết nối
+            string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};SslMode={dbSslMode};";
+
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 11, 8)));
             _context = new ApplicationDbContext(optionsBuilder.Options);
         }
 
-        private bool isSwitchingForm = false;
 
+        private bool isSwitchingForm = false;
         // Event handler for "Login Here" link
         private void label_signuo_loginhere_Click(object sender, EventArgs e)
         {
@@ -35,7 +53,6 @@ namespace VolWorkbench
             isSwitchingForm = true;
             this.Close();
         }
-
         // Async event handler for the signup button click
         private async void button_signup_login_Click(object sender, EventArgs e)
         {
@@ -92,8 +109,6 @@ namespace VolWorkbench
                 MessageBox.Show($"Đã có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         // Event handler for show/hide password checkbox
         private void checkBox_signup_showpassword_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,7 +123,6 @@ namespace VolWorkbench
 
             textBox_signup_password.Refresh();
         }
-
         // Event handler for password text change
         private void textBox_signup_password_TextChanged(object sender, EventArgs e)
         {
@@ -121,7 +135,6 @@ namespace VolWorkbench
                 textBox_signup_password.PasswordChar = '\0';  // Show password
             }
         }
-
         // Event handler for form closing
         private void Sigup_FormClosing(object sender, FormClosingEventArgs e)
         {

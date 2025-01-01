@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic.ApplicationServices;
 
-
 namespace VolWorkbench
 {
     public class ApplicationDbContext : DbContext
@@ -16,12 +15,8 @@ namespace VolWorkbench
             : base(options)
         {
         }
-
         public DbSet<User> Users { get; set; }
     }
-
-
-
 }
 
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 
 namespace VolWorkbench
@@ -18,11 +19,29 @@ namespace VolWorkbench
         public Form_Login()
         {
             InitializeComponent();
-            string connectionString = "Server=171.247.175.33;Port=62807;Database=tool_for;Uid=zs0b;Pwd=123456789;SslMode=None;";
+            string iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logo-white-halloween.ico");
+            this.Icon = new Icon(iconPath);
+
+            // Load .env file
+            Env.Load("envdb.env");
+
+
+            // Lấy thông tin từ .env
+            string dbHost = Env.GetString("DB_HOST");
+            string dbPort = Env.GetString("DB_PORT");
+            string dbName = Env.GetString("DB_NAME");
+            string dbUser = Env.GetString("DB_USER");
+            string dbPassword = Env.GetString("DB_PASSWORD");
+            string dbSslMode = Env.GetString("DB_SSLMODE");
+
+            // Tạo chuỗi kết nối
+            string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};SslMode={dbSslMode};";
+
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(10, 11, 8)));
             _context = new ApplicationDbContext(optionsBuilder.Options);
         }
+
 
         private void label_registerhere_Click(object sender, EventArgs e)
         {
@@ -30,7 +49,6 @@ namespace VolWorkbench
             signupForm.Show();
             this.Hide();
         }
-
 
         private void Form_Login_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -48,12 +66,10 @@ namespace VolWorkbench
             }
         }
 
-
         private void checkBox_showpassword_CheckedChanged(object sender, EventArgs e)
         {
             textBox_login_password.PasswordChar = checkBox_showpassword.Checked ? '\0' : '*';
         }
-
 
         private void textBox_login_password_TextChanged(object sender, EventArgs e)
         {
@@ -112,9 +128,6 @@ namespace VolWorkbench
                 MessageBox.Show("Error connecting: " + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
 
     }
 
